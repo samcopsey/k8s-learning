@@ -11,6 +11,21 @@
 - [Upgrading K8s with kubeadm](#upgrading-k8s-with-kubeadm)
 - [Backing up and restoring etcd cluster data](#backing-up-and-restoring-etcd-cluster-data)
 
+# High Availability 
+  When using multiple control planes for HA you will likely need to communicate through the K8s API through a load balancer. This includes clients such as kubelet instances running on worker nodes
+  ![alt text](image.png)
+
+  #### Etcd multiple control plane HA K8s set up
+  Stacked etcd runs on the same nodes of each control plane node. Each control plane node was have it's own implementation of Stacked etcd
+
+  You can use external Etcd and have multiple instances of Etcd running which allows you have to any number of control instances and etcd instances/ 
+
+  https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/
+
+  # Kubernetes Management Tools
+
+  #### kubectl
+
 Official command line tool and most commonly used tool.
 
   #### kubeadm
