@@ -2,9 +2,9 @@
 
 Allows you to control what users are allowed to do and access within the cluster. For example allow developers to read meta data from pods but not make changes. 
 
-![alt text](image-11.png)
+![alt text](./docs/image-11.png)
 
-![alt text](image-12.png)
+![alt text](./docs/image-12.png)
 
 # Creating Service Accounts
 

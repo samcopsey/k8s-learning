@@ -13,7 +13,7 @@
 
 # High Availability 
   When using multiple control planes for HA you will likely need to communicate through the K8s API through a load balancer. This includes clients such as kubelet instances running on worker nodes
-  ![alt text](image.png)
+  ![alt text](./docs/image.png)
 
   #### Etcd multiple control plane HA K8s set up
   Stacked etcd runs on the same nodes of each control plane node. Each control plane node was have it's own implementation of Stacked etcd
@@ -84,7 +84,7 @@ Why back it up? Etcd is the backend storage solution for your entire K8s cluster
 
 You can back up etcd data using the command line tool etcdctl you can also restore using the same command however when restoring you will need more parameters as the operation creates a new logical cluster. 
 
-![alt text](image-1.png)
+![alt text](./docs/image-1.png)
 
 `ETCDCTL_API=3 etcdctl get cluster.name \
   --endpoints=https://10.0.1.101:2379 \
@@ -92,7 +92,7 @@ You can back up etcd data using the command line tool etcdctl you can also resto
   --cert=/home/cloud_user/etcd-certs/etcd-server.crt \
   --key=/home/cloud_user/etcd-certs/etcd-server.key`
 
-  ![alt text](image-2.png)
+  ![alt text](./docs/image-2.png)
 
   This command is going to return the name of the cluster.name that is in the etcd server. It uses the private ip address of the etcd server and the port number that the server is open on. 
 
@@ -104,11 +104,11 @@ You can back up etcd data using the command line tool etcdctl you can also resto
 
   Now use this command to perform the actual backup. Here is where you specify the backup name
 
-  ![alt text](image-3.png)
+  ![alt text](./docs/image-3.png)
 
   For the purposes of this exercise I have deleted and stopped etcd from running and also deleted all the files assosicated with it. Now all of the data is gone.
 
-  ![alt text](image-4.png)
+  ![alt text](./docs/image-4.png)
 
 `sudo ETCDCTL_API=3 etcdctl snapshot restore /home/cloud_user/etcd_backup.db \
   --initial-cluster etcd-restore=https://10.0.1.101:2380 \
@@ -118,7 +118,7 @@ You can back up etcd data using the command line tool etcdctl you can also resto
 
   This command will now restore etcd uses the specific file location we backed up. It will now spin up a temporary cluster with the restore data. It will then write out that data back into the etcd directory that we deleted. The cluster will be called etcd-restore. We can verify the restore by looking at the directory
 
-  ![alt text](image-5.png)
+  ![alt text](./docs/image-5.png)
 
   We need to now give permissions on the directory back to the etcd user `sudo chown -R etcd:etcd /var/lib/etcd`
 
@@ -130,5 +130,5 @@ You can back up etcd data using the command line tool etcdctl you can also resto
   --cert=/home/cloud_user/etcd-certs/etcd-server.crt \
   --key=/home/cloud_user/etcd-certs/etcd-server.key`
 
-![alt text](image-6.png)
+![alt text](./docs/image-6.png)
 

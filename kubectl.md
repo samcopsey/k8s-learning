@@ -12,9 +12,9 @@ Used to list objects within the K8s cluster
 --sort-by Sort output using a JSONPath expression
 --selection Filter results by a label
 
-![alt text](image-7.png)
+![alt text](./docs/image-7.png)
 
-![alt text](image-8.png)
+![alt text](./docs/image-8.png)
 
 #### kubectl describe
 
@@ -38,7 +38,7 @@ Similar to create but if the object already exists it will modify instead of fai
 
 `kubectl apply -f <file name>`
 
-![alt text](image-9.png)
+![alt text](./docs/image-9.png)
 
 #### kubectl delete
 
@@ -54,7 +54,7 @@ Used to run commands inside a container. Very powerful for troubleshotting
 
 #### Declaritive vs Imperative Commands
 
-![alt text](image-10.png)
+![alt text](./docs/image-10.png)
 
 You can use --dry-tun flag to run a command without creating an object. Combine it with -o yaml to quickly obtain a sample YAMl file you can manipulate.
 
@@ -62,7 +62,7 @@ You can use --dry-tun flag to run a command without creating an object. Combine 
 
 # Pod Metrics and data
 
-![alt text](image-13.png)
+![alt text](./docs/image-13.png)
 
 `kubectl apply -f https://raw.githubusercontent.com/linuxacademy/content-cka-resources/master/metrics-server-components.yaml`
 
@@ -72,5 +72,5 @@ Once this is installed we can use kubectl top to view data about resource usage 
 
 `kubectl top pod --sort-by <JSONPATH> --selector <selector>` 
 
-![alt text](image-14.png)
+![alt text](./docs/image-14.png)
 
