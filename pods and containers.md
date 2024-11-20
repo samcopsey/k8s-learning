@@ -102,3 +102,78 @@ Never restarts the pod. Use is the application should only be run once and never
 Example
 
 ![alt text](./docs/image-33.png)
+
+# Creating Multi-Container Pods
+
+K8s can have one or more containers. The containers share resources such as network and storage and can interact with one another to provide functionality. 
+
+It's best practice to keep containers in seperate pods unless they need to share resources
+
+#### Cross Container interaction
+
+Containers share the same networking namespace and can communicate with one another on any port even if that port is not exposed to the cluster. 
+
+Containers can use volumnes to share data in a pod. 
+
+You could use this when have an application that is hard coded to write log output to a file on disk. You could add a secondary container to the pod (sometimes called a sidecar) that reads the log file from a shared volume and prints it to the console so the log output will appear in the container log.
+
+# Introducing Init Containers
+
+These containers run once during the startup process of a pod. A pod can have any number of init containers and they will each run once (in order) to completition. 
+
+![alt text](.\docs\image-34.png)
+
+Use these to cause a pod to wait for another K8s resource to be created before finishing startup. Also can be used to perform sensitive startup steps securely outside of app containers. They could also be used populate data into a shared volume at startup. They could also be used to communicate with another service at startup. 
+
+![alt text](.\docs\image-35.png)
+
+![alt text](.\docs\image-36.png)
+
+# Exploring K8s Scheduling
+
+Scheduling is the process of assigning pods to Nodes so kubelets can run them. A scheduler is a control plane component that handles scheduling.
+
+#### Scheduling Process
+
+The scheduler selects a suitable Node for each Pod. It takes into account 
+
+* Resources requests vs available node resources
+* Various configurations that affect scheduling using node labels and other factors.
+
+#### nodeSelector
+
+This limits which Node the Pod can be scheduled on. The use labels to filter suitable nodes.
+
+![alt text](.\docs\image-37.png)
+
+#### nodeName
+
+Bypass scheduling entirely and assign a Pod to specific Node by using nodeName
+
+![alt text](.\docs\image-38.png)
+
+![alt text](.\docs\image-39.png)
+
+![alt text](.\docs\image-40.png)
+![alt text](.\docs\image-41.png)
+
+# Using DaemonSets
+
+Automatically runs a copy of a Pod on each node. They will run a copy of the pod on new nodes as they are added to the cluster.
+
+#### DaemonSets and Scheduling
+
+Respect normal scheduling rules around node labels, taints and tolerations. If a pod would normally not be scheduled on a node, a DaemonSet will not create a copy of the Pod on that Node.
+
+![alt text](.\docs\image-42.png)
+
+# Using Static Pods
+
+These are pods that are managed directly by a kubelet on a node and not by the K8s API server. They can run if there is no K8s API server present.
+
+Kubelet automatically creates static pods from YAML manifest files located in the manifest path on the node.
+
+#### Mirror Pods
+
+Kubelet will create a mirror Pod for each static Pod. These allow you to see the status of these pods with the K8s API but you cannot change or manage them via the API. They are essentially ghost representations of those static pods. 
+
